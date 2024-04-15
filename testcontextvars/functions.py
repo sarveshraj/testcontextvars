@@ -1,17 +1,17 @@
 from time import sleep
 from random import random
-from .context import roleIdCtxVar
+from .context import requestIdCtxVar
 
 
-def a(roleId: str):
-    print(f"[{roleId}] Ctx var inside a(): {roleIdCtxVar.get()}")
+def a(requestId: str):
+    print(f"[{requestId}] Ctx var inside a(): {requestIdCtxVar.get()}")
     delay()
-    b(roleId)
+    b(requestId)
     return
 
 
-def b(roleId: str):
-    print(f"[{roleId}] Ctx var inside b(): {roleIdCtxVar.get()}\n")
+def b(requestId: str):
+    print(f"[{requestId}] Ctx var inside b(): {requestIdCtxVar.get()}\n")
     delay()
     return
 

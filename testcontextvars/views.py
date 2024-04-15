@@ -1,19 +1,19 @@
 from contextvars import copy_context
 from django.http import HttpResponse
 from .functions import a, delay
-from .context import roleIdCtxVar
+from .context import requestIdCtxVar
 from uuid import uuid4
 
 
 def test(request):
-    roleId = uuid4().hex
+    requestId = uuid4().hex
 
-    roleIdCtxVar.set(roleId)
+    requestIdCtxVar.set(requestId)
 
     delay()
 
     ctx = copy_context()
-    ctx.run(lambda: a(roleId))
+    ctx.run(lambda: a(requestId))
 
     return HttpResponse()
 
