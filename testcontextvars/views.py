@@ -6,7 +6,11 @@ from uuid import uuid4
 
 
 def test(request):
-    requestId = uuid4().hex
+    requestId = (
+        request.headers["X-Request-Id"]
+        if request.headers["X-Request-Id"]
+        else uuid4().hex
+    )
 
     requestIdCtxVar.set(requestId)
 
