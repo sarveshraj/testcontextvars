@@ -24,7 +24,7 @@ done
 
 echo "Sending ${numOfRequests} requests in parallel..."
 
-curl --no-progress-meter --parallel --parallel-immediate --config config.txt
+curl --no-progress-meter --parallel --parallel-immediate --config config.txt &> /dev/null
 
 echo "Killing server..."
 kill $(lsof -t -i:8000) &> /dev/null

@@ -1,25 +1,11 @@
-from contextvars import copy_context
 from django.http import HttpResponse
-from .functions import a, delay
-from .context import requestIdCtxVar
-from uuid import uuid4
+from .functions import delay, a
 
 
 def test(request):
-    requestId = (
-        request.headers["X-Request-Id"]
-        if request.headers["X-Request-Id"]
-        else uuid4().hex
-    )
-
-    requestIdCtxVar.set(requestId)
-
     delay()
-
-    ctx = copy_context()
-    ctx.run(lambda: a(requestId))
-
-    return HttpResponse()
+    a(request.META.get("HTTP_X_REQUEST_ID"))
+    return HttpResponse("Test complete")
 
 
 def ping(request):
